@@ -1,0 +1,104 @@
+.record-logs-page { max-width: 1920px; }
+.log-page-intro { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin: 24px 0; }
+.log-eyebrow { color: var(--request-muted); font-size: 10px; font-weight: 700; letter-spacing: .13em; margin: 0 0 6px; }
+.log-page-intro h2 { color: var(--request-green); font: 700 25px/1.3 'Nunito', sans-serif; margin: 0 0 8px; }
+.log-page-intro p:last-child { color: var(--request-muted); font-size: 13px; margin: 0; }
+.log-policy-pill { display: inline-flex; align-items: center; gap: 8px; color: var(--request-green); background: #e9efdf; border: 1px solid #d4e0c8; border-radius: 30px; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
+.log-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-bottom: 24px; }
+.log-metric { display: flex; flex-direction: row; align-items: center; gap: 14px; padding: 20px; margin: 0; }
+.log-metric-icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; color: var(--request-green); background: #edf3e6; font-size: 21px; flex-shrink: 0; }
+.log-metric-overdue .log-metric-icon { background: #fcf0e8; color: #ae5627; }
+.log-metric span:not(.log-metric-icon) { font-size: 12px; color: var(--request-muted); }
+.log-metric strong { display: block; color: var(--request-green); font: 700 28px/1.25 'Nunito', sans-serif; margin-top: 4px; }
+.log-section-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 22px 24px 18px; }
+.log-section-heading h2 { color: var(--request-green); font: 700 19px/1.4 'Nunito', sans-serif; margin: 0; }
+.log-step-label { color: var(--request-muted); font-size: 11px; }
+.log-entry-grid { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(260px, 1fr); border-top: 1px solid var(--request-border); }
+.log-search-panel { padding: 24px; }
+.record-logs-page .form-label, #returnModal .form-label { color: var(--request-green); font-size: 12px; font-weight: 600; }
+.log-search-input { position: relative; }
+.log-search-input > i { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: var(--request-muted); pointer-events: none; }
+.log-search-input .form-control { padding-left: 38px; min-height: 44px; font-size: 13px; }
+.log-help, .log-optional { color: var(--request-muted); font-size: 11px; font-weight: 400; }
+.log-search-panel > .log-help { margin: 8px 0 0; }
+.log-student-placeholder { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 32px 16px; text-align: center; color: var(--request-muted); }
+.log-student-placeholder > i { font-size: 30px; color: #819a72; }
+.log-student-placeholder strong { font-size: 13px; font-weight: 600; }
+.log-student-placeholder span { font-size: 12px; }
+.log-student-results { display: grid; gap: 8px; max-height: 290px; overflow: auto; margin-top: 12px; }
+.log-student-result { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; width: 100%; border: 1px solid var(--request-border); background: #fff; border-radius: 8px; text-align: left; color: var(--request-green); }
+.log-student-result:hover { background: #f1f5eb; border-color: #a9bc97; }
+.log-student-result strong, .log-student-result small { display: block; }
+.log-student-result strong { font-size: 13px; }
+.log-student-result small { font-size: 11px; color: var(--request-muted); margin-top: 3px; }
+.log-student-result:disabled { cursor: default; background: #f7f8f4; opacity: .75; }
+.log-student-result > span:last-child { font-size: 10px; flex-shrink: 0; }
+.log-selected-student { border-left: 3px solid #93ac7d; padding: 12px 16px; background: #f5f8f0; margin-top: 18px; }
+.log-selected-heading { display: flex; justify-content: space-between; align-items: center; }
+.log-selected-heading .btn { color: var(--request-green); padding: 0; font-size: 11px; }
+.log-selected-student h3 { font: 700 19px/1.4 'Nunito', sans-serif; margin: 6px 0 14px; color: var(--request-green); }
+.log-student-details { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 20px; margin: 0 0 12px; }
+.log-student-details dt, .log-entry-summary dt { color: var(--request-muted); font-size: 10px; font-weight: 500; margin-bottom: 4px; }
+.log-student-details dd { margin: 0; font-size: 12px; overflow-wrap: anywhere; }
+.log-form-actions { display: flex; align-items: center; gap: 14px; margin-top: 18px; }
+.log-form-actions .btn { flex-shrink: 0; min-height: 44px; font-size: 13px; }
+.log-form-actions small { color: var(--request-muted); font-size: 10px; }
+.log-entry-summary { background: #f4f7ed; border-left: 1px solid var(--request-border); padding: 26px; border-radius: 0 0 14px 0; }
+.log-summary-icon { color: #6c8957; font-size: 25px; margin-bottom: 12px; }
+.log-entry-summary h3 { color: var(--request-green); max-width: 250px; font: 700 19px/1.5 'Nunito', sans-serif; margin: 0 0 22px; }
+.log-entry-summary dl { display: grid; gap: 16px; }
+.log-entry-summary dd { margin: 0; font-size: 12px; font-weight: 600; }
+.log-entry-summary p { font-size: 11px; color: var(--request-muted); line-height: 1.7; margin: 16px 0 0; }
+.log-register-tools { display: flex; justify-content: space-between; gap: 14px; padding: 0 24px 20px; }
+.log-register-tools .log-search-input { width: 240px; }
+.log-filters { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.log-filters button { color: var(--request-muted); background: transparent; border: 1px solid transparent; border-radius: 6px; font-size: 11px; padding: 8px 12px; min-height: 40px; }
+.log-filters button[aria-pressed='true'] { color: var(--request-green); background: #eaf1e0; border-color: #d8e3cc; font-weight: 600; }
+.log-table-scroll { overflow-x: auto; }
+.log-table { min-width: 1100px; font-size: 11px; margin-bottom: 0; }
+.log-table > :not(caption) > * > * { padding: 16px 14px; vertical-align: top; }
+.log-table th { font-size: 11px; white-space: nowrap; }
+.log-table th:first-child, .log-table td:first-child { padding-left: 24px; }
+.log-table th:last-child, .log-table td:last-child { padding-right: 24px; }
+.log-table th small { display: block; color: var(--request-muted); font-size: 9px; font-weight: 400; margin-top: 3px; }
+.log-table td small { display: block; color: var(--request-muted); font-size: 10px; line-height: 1.5; margin-top: 4px; }
+.log-table .log-date { white-space: nowrap; display: block; }
+.log-table .log-student-name { min-width: 125px; font-weight: 700; color: var(--request-green); }
+.log-table .log-course-cell { max-width: 200px; min-width: 120px; }
+.log-table .log-remarks-cell { max-width: 230px; min-width: 145px; overflow-wrap: anywhere; white-space: pre-wrap; }
+.log-status { display: inline-flex; align-items: center; gap: 5px; border-radius: 5px; padding: 5px 8px; font-size: 9px; font-weight: 600; }
+.log-status-out { color: #8c6425; background: #fbf3df; }
+.log-status-overdue { color: #ac402c; background: #fbeae5; }
+.log-status-returned { color: #386643; background: #eaf3e6; }
+.log-table .btn { white-space: nowrap; font-size: 10px; min-height: 34px; }
+.log-table .log-empty { padding: 46px 24px; text-align: center; color: var(--request-muted); font-size: 12px; }
+.log-pagination { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 16px 24px; font-size: 11px; color: var(--request-muted); }
+.log-pagination > div { display: flex; gap: 8px; }
+.log-pagination .btn { font-size: 11px; min-height: 36px; }
+.log-return-student { display: grid; gap: 6px; padding: 16px; background: #f3f6ed; border-left: 3px solid #93ac7d; }
+.log-return-student strong { color: var(--request-green); }
+.log-return-student span { font-size: 12px; }
+.log-return-student small { color: var(--request-muted); font-size: 11px; }
+.log-return-audit { display: flex; align-items: center; gap: 10px; padding: 14px; margin-top: 20px; border: 1px solid var(--request-border); border-radius: 8px; color: var(--request-muted); font-size: 11px; line-height: 1.7; }
+.log-return-audit i { font-size: 22px; }
+[hidden] { display: none !important; }
+@media (min-width: 1600px) { .log-table { font-size: 12px; } }
+@media (max-width: 1000px) { .log-metric { padding: 16px; gap: 10px; } .log-metric-icon { width: 36px; height: 36px; } .log-entry-grid { grid-template-columns: minmax(0, 1.4fr) minmax(240px, 1fr); } }
+@media (max-width: 767px) {
+  .log-page-intro { align-items: flex-start; flex-direction: column; gap: 14px; }
+  .log-page-intro h2 { font-size: 22px; }
+  .log-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .log-metric { padding: 14px; } .log-metric strong { font-size: 25px; }
+  .log-entry-grid { grid-template-columns: 1fr; }
+  .log-section-heading, .log-search-panel { padding: 18px; }
+  .log-entry-summary { border-left: 0; border-top: 1px solid var(--request-border); padding: 20px; border-radius: 0 0 14px 14px; }
+  .log-summary-icon { display: none; } .log-entry-summary h3 { max-width: none; font-size: 17px; margin-bottom: 16px; }
+  .log-entry-summary dl { grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 0; }
+  .log-step-label { display: none; }
+  .log-register-tools { flex-direction: column; padding: 0 18px 18px; }
+  .log-register-tools .log-search-input { width: 100%; }
+  .log-filters button { padding: 8px 10px; }
+  .log-form-actions { align-items: stretch; flex-direction: column; gap: 8px; }
+  .log-pagination { padding: 14px 18px; }
+}
+@media (max-width: 380px) { .log-metric-icon { display: none; } .log-student-details { grid-template-columns: 1fr; } }

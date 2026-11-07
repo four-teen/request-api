@@ -1,0 +1,19 @@
+.env
+.env.*
+!.env.example
+vendor/
+.runtime/
+profile/*
+!profile/default.png
+administrator/log.txt
+administrator/* - Copy.php
+administrator/db.php
+*.sql
+*.log
+.DS_Store
+*.pem
+*.key
+*.p12
+*.pfx
+.cpanel.env
+auth.json
