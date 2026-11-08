@@ -11,7 +11,7 @@ rrms_require_login();
 $getsystemconfig = "SELECT * FROM `tblconfig`";
 $runsystemconfig = mysqli_query($conn, $getsystemconfig);
 $rowconfig = $runsystemconfig ? mysqli_fetch_assoc($runsystemconfig) : [];
-$_SESSION['systemname'] = $rowconfig['systemname'] ?? 'RRMS';
+$_SESSION['systemname'] = 'reQuest';
 $_SESSION['systemcopyright'] = $rowconfig['systemcopyright'] ?? '';
 
 if (!function_exists('rrms_admin_count')) {
@@ -193,7 +193,7 @@ $dueTomorrowPreview = array_slice($dueTomorrowRequests, 0, 6);
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard: <?php echo rrms_h($rowconfig['systemname'] ?? 'RRMS') ?></title>
+  <title>Dashboard | reQuest</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 

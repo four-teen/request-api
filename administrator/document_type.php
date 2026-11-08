@@ -10,7 +10,7 @@ rrms_require_login();
 $getsystemconfig = "SELECT * FROM `tblconfig`";
 $runsystemconfig = mysqli_query($conn, $getsystemconfig);
 $rowconfig = $runsystemconfig ? mysqli_fetch_assoc($runsystemconfig) : [];
-$_SESSION['systemname'] = $rowconfig['systemname'] ?? 'RRMS';
+$_SESSION['systemname'] = 'reQuest';
 $_SESSION['systemcopyright'] = $rowconfig['systemcopyright'] ?? '';
 
 $docCountResult = mysqli_query($conn, "SELECT COUNT(id) AS total FROM `tbldoctypes`");
@@ -33,7 +33,7 @@ $usedDocCount = (int) ($usedDocRow['total'] ?? 0);
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Document Types: <?php echo rrms_h($rowconfig['systemname'] ?? 'RRMS') ?></title>
+  <title>Document Types | reQuest</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 

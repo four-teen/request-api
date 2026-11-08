@@ -3,7 +3,8 @@ if (!function_exists('rrms_footer_brand')) {
     function rrms_footer_brand($value)
     {
         // Configuration is text. Escape it before adding the fixed, trusted wordmark.
-        $text = htmlspecialchars((string) $value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+        $value = preg_replace('/\bSmart\s+Access\s+Management\b/i', 'reQuest', (string) $value);
+        $text = htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
         return preg_replace('/\b(?:SAM|eoa)\b/i', '<span class="eoa-wordmark"><span class="brand-accent">e</span>oa</span>', $text);
     }
 }

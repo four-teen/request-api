@@ -14,7 +14,7 @@ $dateTo   = trim($_GET['dateTo'] ?? '');
 $getsystemconfig = "SELECT * FROM `tblconfig`";
 $runsystemconfig=mysqli_query($conn, $getsystemconfig);
 $rowconfig=mysqli_fetch_assoc($runsystemconfig);
-$systemname = $rowconfig['systemname'] ?? 'Registrar Management System';
+$systemname = 'reQuest';
 $systemcopyright = $rowconfig['systemcopyright'] ?? '©';
 
 // Resolve document type label

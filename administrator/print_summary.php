@@ -9,7 +9,7 @@ rrms_require_login();
 $getsystemconfig = "SELECT * FROM `tblconfig`";
 $runsystemconfig=mysqli_query($conn, $getsystemconfig);
 $rowconfig=mysqli_fetch_assoc($runsystemconfig);
-$_SESSION['systemname'] = $rowconfig['systemname'];
+$_SESSION['systemname'] = 'reQuest';
 $_SESSION['systemcopyright'] = $rowconfig['systemcopyright'];
 ?>
 <!DOCTYPE html>
@@ -17,7 +17,7 @@ $_SESSION['systemcopyright'] = $rowconfig['systemcopyright'];
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Reports | <?php echo rrms_h($rowconfig['systemname']); ?></title>
+  <title>Reports | reQuest</title>
 
   <!-- Favicons -->
   <link href="../assets/img/request-logo.png" rel="icon">

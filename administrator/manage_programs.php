@@ -14,7 +14,7 @@
     $getsystemconfig = "SELECT * FROM `tblconfig`";
     $runsystemconfig=mysqli_query($conn, $getsystemconfig);
     $rowconfig=mysqli_fetch_assoc($runsystemconfig);
-    $_SESSION['systemname'] = $rowconfig['systemname'];
+    $_SESSION['systemname'] = 'reQuest';
     $_SESSION['systemcopyright'] = $rowconfig['systemcopyright'];
 
 ?>
@@ -25,7 +25,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard: <?php echo $rowconfig['systemname'] ?></title>
+  <title>Degree / Program | reQuest</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
