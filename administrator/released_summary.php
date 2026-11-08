@@ -14,7 +14,7 @@
     $getsystemconfig = "SELECT * FROM `tblconfig`";
     $runsystemconfig=mysqli_query($conn, $getsystemconfig);
     $rowconfig=mysqli_fetch_assoc($runsystemconfig);
-    $_SESSION['systemname'] = $rowconfig['systemname'];
+    $_SESSION['systemname'] = 'reQuest';
     $_SESSION['systemcopyright'] = $rowconfig['systemcopyright'];
 
     // Check if `tblsettings` exists before querying to avoid fatal errors when the table was removed
@@ -46,7 +46,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard: <?php echo $rowconfig['systemname'] ?></title>
+  <title>Released Summary | reQuest</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
