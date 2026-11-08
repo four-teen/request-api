@@ -43,6 +43,10 @@ The web proxy exposes the working administrative routes and static assets. On th
 
 The deployment script rejects the account home, the bare `public_html` directory, paths outside the account, and paths overlapping the Git repository. Use a dedicated application directory. Because deployment preserves existing files, removals from a future release require a separate reviewed cleanup.
 
+The deployment sets copied public directories to `0755` and files to `0644`. The private cPanel clone may be `0700`; copying that mode onto the public API directory prevents Apache from reading `.htaccess`. A parent website's fallback rewrite can then return its home page for API requests. Keep the private clone private; correct only the public application's directory permissions. The production `.env` is separate from the clone's `.env` and is deliberately not copied during deployment.
+
+For an existing installation with this problem, set the public API directory to `0755` in cPanel File Manager, complete its own `.env`, and verify `auth/session.php` returns JSON. No subdomain is required when the application is served at `https://YOUR_DOMAIN/request-api`. The frontend's `npm run health -- --api https://YOUR_DOMAIN/request-api --web https://YOUR_FRONTEND` checks the direct API and proxy without logging in or modifying records.
+
 References: [cPanel Git Version Control](https://docs.cpanel.net/cpanel/files/git-version-control/), [cPanel pull deployment](https://docs.cpanel.net/knowledge-base/web-services/guide-to-git-set-up-deployment/).
 
 ## Office logo

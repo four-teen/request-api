@@ -31,15 +31,20 @@ if [[ ! -f "$DEPLOY_PATH/.env" ]]; then
   exit 1
 fi
 
+# The private cPanel clone can be 0700. Do not copy that directory mode to
+# the public application: Apache must traverse it to read PHP and .htaccess.
+# Private files remain excluded; application access rules stay in .htaccess.
 # Keep deployment additive: never delete production files, uploads, or environment settings.
-rsync -a \
+rsync -a --chmod=D755,F644 \
   --exclude='.git/' --exclude='.github/' --exclude='.env*' \
   --exclude='.gitignore' --exclude='.gitattributes' --exclude='.cpanel.yml' \
   --exclude='.runtime/' --exclude='profile/' --exclude='deploy/' --exclude='tests/' \
   --exclude='README.md' --exclude='serve.mjs' --exclude='router.php' \
   "$REPO_ROOT/" "$DEPLOY_PATH/"
 mkdir -p -- "$DEPLOY_PATH/profile"
+chmod 0755 -- "$DEPLOY_PATH/profile"
 if [[ ! -f "$DEPLOY_PATH/profile/default.png" ]]; then
   cp -- "$REPO_ROOT/profile/default.png" "$DEPLOY_PATH/profile/default.png"
+  chmod 0644 -- "$DEPLOY_PATH/profile/default.png"
 fi
 echo 'reQuest API deployment complete. Environment settings, uploads, and database were preserved.'
