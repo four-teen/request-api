@@ -6,6 +6,22 @@ PHP_BIN="${REQUEST_PHP_BIN:-php}"
 command -v "$PHP_BIN" >/dev/null || { echo 'PHP CLI is required.' >&2; exit 1; }
 command -v rsync >/dev/null || { echo 'rsync is required.' >&2; exit 1; }
 
+# These are browser dependencies, not Composer's ignored vendor directory.
+# Refuse an incomplete checkout before copying anything into the live application.
+for ASSET in \
+  assets/vendor/bootstrap/css/bootstrap.min.css \
+  assets/vendor/bootstrap/js/bootstrap.bundle.min.js \
+  assets/vendor/bootstrap-icons/bootstrap-icons.css \
+  assets/vendor/bootstrap-icons/fonts/bootstrap-icons.woff2 \
+  assets/vendor/boxicons/css/boxicons.min.css \
+  assets/vendor/boxicons/fonts/boxicons.woff2 \
+  assets/vendor/apexcharts/apexcharts.min.js; do
+  if [[ ! -s "$REPO_ROOT/$ASSET" ]]; then
+    echo "Missing runtime asset: $ASSET. Commit assets/vendor browser libraries before deployment." >&2
+    exit 1
+  fi
+done
+
 # Only the deployment path is read; database credentials are never printed or copied.
 DEPLOY_PATH="$("$PHP_BIN" -r 'require $argv[1] . "/config.php"; echo getenv("REQUEST_DEPLOY_PATH") ?: "";' "$REPO_ROOT")"
 if [[ -z "$DEPLOY_PATH" || "$DEPLOY_PATH" != /* || "$DEPLOY_PATH" == *$'\n'* ]]; then

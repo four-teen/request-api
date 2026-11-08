@@ -31,6 +31,8 @@ Keep `.env`, runtime profile photos, logs, and database exports out of Git. Refe
 
 The web proxy exposes the working administrative routes and static assets. On the PHP host, disable directory listing and deny direct access to `.env`, `config.php`, and `db.php`. Apache rules are supplied in `.htaccess`; configure equivalent rules on other servers.
 
+The browser libraries under `assets/vendor/` are required runtime files and must be committed and deployed. The ignore rules exclude Composer dependencies at `/vendor/` and `/administrator/vendor/`, unused chart distributions, and development source maps; they allow Bootstrap, icon fonts, ApexCharts, and the other browser libraries used by these pages. Missing CSS/JavaScript can return HTTP 200 HTML through a parent website's fallback, so verify the response content type as well as the status. The frontend health command checks these runtime assets. The frontend exposes these PHP screens at clean URLs such as `/dashboard` and `/requests`; authentication JSON returns `/dashboard` as the workspace URL.
+
 ## GitHub and cPanel Git Version Control
 
 1. Create a GitHub repository named `request-api` and add its URL as this application's `origin`. Commit the source; `.env`, `.runtime`, personal profile photos, and database dumps are ignored. No remote or cloud deployment is created automatically.

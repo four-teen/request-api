@@ -84,7 +84,7 @@ if (empty(password_get_info((string) $row['password'])['algo'])) {
 if (defined('REQUEST_AUTH_JSON') && REQUEST_AUTH_JSON) {
     header('Content-Type: application/json; charset=utf-8');
     header('Cache-Control: no-store');
-    echo json_encode(['workspaceUrl' => '/api/administrator/']);
+    echo json_encode(['workspaceUrl' => '/dashboard']);
     exit;
 }
 

@@ -16,5 +16,5 @@ echo json_encode([
         'username' => $_SESSION['username'],
         'fullname' => $_SESSION['fullname'],
     ],
-    'workspaceUrl' => '/api/administrator/',
+    'workspaceUrl' => '/dashboard',
 ]);

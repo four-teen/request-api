@@ -1,7 +1,13 @@
 .env
 .env.*
 !.env.example
-vendor/
+/vendor/
+/administrator/vendor/
+# Browser libraries are runtime assets, not Composer dependencies.
+# Keep unused chart distributions and development source maps out of deployment.
+/assets/vendor/chart.js/
+/assets/vendor/echarts/
+/assets/vendor/**/*.map
 .runtime/
 profile/*
 !profile/default.png
