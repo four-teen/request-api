@@ -9,12 +9,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     echo json_encode(['message' => 'Method not allowed.']);
     exit;
 }
+$user = rrms_current_user();
 echo json_encode([
     'csrfToken' => rrms_csrf_token(),
-    'user' => empty($_SESSION['username']) ? null : [
-        'id' => (int) $_SESSION['acc_id'],
-        'username' => $_SESSION['username'],
-        'fullname' => $_SESSION['fullname'],
+    'user' => !$user ? null : [
+        'id' => $user['id'], 'username' => $user['username'], 'fullname' => $user['fullname'],
+        'role' => $user['role'], 'permissions' => $user['permissions'],
     ],
-    'workspaceUrl' => '/dashboard',
+    'workspaceUrl' => $user ? rrms_user_workspace($user) : '/dashboard',
 ]);

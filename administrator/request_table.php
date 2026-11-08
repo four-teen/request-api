@@ -132,15 +132,18 @@ function rrms_request_table_row($row, $number, $documents, $hasRemarks, $status,
     if ($status === 'released') {
         $actions = rrms_request_table_button('showDetailsDrawer(' . $id . ')', 'View request details', 'btn-primary', '', 'Details');
     } else {
-        $actions = '<div class="request-row-actions" role="group" aria-label="Request actions">' . $details
-            . rrms_request_table_button('editRequestDrawer(' . $id . ')', 'Edit request', 'btn-success', 'bi bi-pencil-square')
-            . rrms_request_table_button('request_docs(' . $id . ', ' . json_encode($fullname, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_INVALID_UTF8_SUBSTITUTE) . ')', 'Manage requested documents', 'btn-warning', 'bi bi-chat-square-dots-fill')
-            . rrms_request_table_button('remove_requestor(' . $id . ')', 'Delete request', 'btn-danger', 'bi bi-trash-fill') . '</div>';
+        $actions = '<div class="request-row-actions" role="group" aria-label="Request actions">' . $details;
+        if (rrms_can('requests.edit')) {
+            $actions .= rrms_request_table_button('editRequestDrawer(' . $id . ')', 'Edit request', 'btn-success', 'bi bi-pencil-square')
+                . rrms_request_table_button('request_docs(' . $id . ', ' . json_encode($fullname, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_INVALID_UTF8_SUBSTITUTE) . ')', 'Manage requested documents', 'btn-warning', 'bi bi-chat-square-dots-fill');
+        }
+        if (rrms_can('requests.delete')) $actions .= rrms_request_table_button('remove_requestor(' . $id . ')', 'Delete request', 'btn-danger', 'bi bi-trash-fill');
+        $actions .= '</div>';
     }
     return [
         'DT_RowId' => 'request-' . $id,
         'number' => $number . '.',
-        'remarks' => rrms_request_table_button('add_remarks(' . $id . ')', 'Remarks', $hasRemarks ? 'btn-info' : 'btn-secondary', 'bi bi-info-square'),
+        'remarks' => rrms_can('requests.edit') ? rrms_request_table_button('add_remarks(' . $id . ')', 'Remarks', $hasRemarks ? 'btn-info' : 'btn-secondary', 'bi bi-info-square') : ($hasRemarks ? 'Has remarks' : '—'),
         'requestor' => '<div class="requestor-name">' . rrms_h($fullname) . '</div><div class="request-contact-quote"><i class="bi bi-telephone" aria-hidden="true"></i><span>' . rrms_h($row['req_contact_number']) . '</span></div>',
         'dates' => '<span class="request-date-label">Date Request</span><span class="request-date-value">' . rrms_h(rrms_request_table_date($row['req_datetime_request'], 'M d, Y h:i a', true)) . '</span><span class="request-date-label mt-2">Due Date</span><span class="request-date-value text-danger">' . rrms_h(rrms_request_table_date($row['req_due_date'], 'M d, Y')) . '</span>',
         'documents' => rrms_request_documents_html($documents),

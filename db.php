@@ -71,10 +71,12 @@ if (!function_exists('rrms_require_csrf')) {
 if (!function_exists('rrms_require_login')) {
     function rrms_require_login()
     {
-        if (empty($_SESSION['username'])) {
+        $user = rrms_current_user();
+        if (!$user) {
             header('location:../logout.php');
             exit;
         }
+        rrms_set_login_session($user);
     }
 }
 
@@ -142,5 +144,7 @@ if (!$conn) {
 
 mysqli_set_charset($conn, 'utf8mb4');
 date_default_timezone_set(rrms_env('RRMS_TIMEZONE', 'Asia/Manila'));
+
+require_once __DIR__ . '/account_access.php';
 
 ?>

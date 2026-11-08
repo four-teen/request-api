@@ -8,6 +8,7 @@
     require_once __DIR__ . '/request_status.php';
 
     rrms_require_login();
+    rrms_require_permission('requests.view');
 
     $getsystemconfig = "SELECT * FROM `tblconfig`";
     $runsystemconfig=mysqli_query($conn, $getsystemconfig);
@@ -228,7 +229,7 @@
                 <div class="card-body">
                   <div class="request-list-toolbar">
                     <h5 class="card-title"><?php echo rrms_h($requestTableTitle); ?> <span>| <?php echo rrms_h($requestTableSubtitle); ?></span></h5>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRequestModal" aria-haspopup="dialog" aria-controls="addRequestModal">
+                    <button type="button" class="btn btn-primary" data-permission="requests.create" data-bs-toggle="modal" data-bs-target="#addRequestModal" aria-haspopup="dialog" aria-controls="addRequestModal">
                       <i class="bi bi-plus-lg me-1" aria-hidden="true"></i>Create Request
                     </button>
                   </div>

@@ -4,6 +4,7 @@ ob_start();
 include '../db.php';
 
 rrms_require_login();
+rrms_require_permission('reports.view');
 
 // System configuration
 $getsystemconfig = "SELECT * FROM `tblconfig`";

@@ -4,6 +4,7 @@ ob_start();
 include '../db.php';
 
 rrms_require_login();
+rrms_require_permission('administration');
 rrms_require_csrf();
 
 // ====================== LOAD FACULTY LIST ======================
@@ -85,6 +86,13 @@ if (isset($_POST['delete_faculty'])) {
 
     // Make sure ID is not empty and numeric
     if ($id > 0) {
+        $linkedAccounts = rrms_account_rows($conn, 'SELECT account_id FROM tbl_account_access WHERE incharge_id = ?', 'i', [$id]);
+        if ($linkedAccounts) {
+            http_response_code(409);
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['status' => 'error', 'message' => 'This program chair is linked to an account. Reassign the account before removing the person.']);
+            exit;
+        }
         $del = rrms_prepare_execute($conn, 'DELETE FROM tblincharge WHERE inchargeid = ?', 'i', [$id]);
 
         if ($del) {

@@ -1,5 +1,7 @@
   <script>
     window.RRMS_CSRF_TOKEN = <?php echo json_encode(rrms_csrf_token()); ?>;
+    window.RRMS_ACCESS = <?php $headerUser = rrms_current_user(); echo json_encode(['administrator' => $headerUser && $headerUser['role'] === 'administrator', 'permissions' => $headerUser['permissions'] ?? []]); ?>;
+    window.rrmsCan = function (permission) { return window.RRMS_ACCESS.administrator || window.RRMS_ACCESS.permissions.includes(permission); };
     (function () {
       var originalOpen = XMLHttpRequest.prototype.open;
       var originalSend = XMLHttpRequest.prototype.send;
@@ -20,6 +22,7 @@
       };
     })();
   </script>
+  <script src="../assets/js/access-controls.js" defer></script>
 
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">

@@ -2,7 +2,7 @@ Options -Indexes
 RedirectMatch 404 "(^|/)\.runtime(/|$)"
 RedirectMatch 404 "(^|/)\.git(/|$)"
 RedirectMatch 404 "(^|/)deploy(/|$)"
-<FilesMatch "^(\.env.*|config\.php|db\.php|router\.php|.* - Copy\.php|log\.txt)$">
+<FilesMatch "^(\.env.*|config\.php|db\.php|account_access\.php|router\.php|.* - Copy\.php|log\.txt)$">
   Require all denied
 </FilesMatch>
 <FilesMatch "^(README\.md|\.cpanel\.yml|serve\.mjs|composer\.(json|lock))$">

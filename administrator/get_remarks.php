@@ -6,6 +6,7 @@
     include '../db.php';
 
     rrms_require_login();
+rrms_require_permission('requests.view');
     rrms_require_csrf();
 
     

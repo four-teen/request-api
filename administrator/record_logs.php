@@ -3,6 +3,7 @@ session_start();
 require __DIR__ . '/../db.php';
 require __DIR__ . '/record_log_functions.php';
 rrms_require_login();
+rrms_require_permission('record_logs.view');
 $rowconfig = mysqli_fetch_assoc(mysqli_query($conn, 'SELECT * FROM tblconfig LIMIT 1')) ?: [];
 $checkers = rrms_log_rows($conn, 'SELECT inchargeid, inchargename FROM tblincharge ORDER BY inchargename');
 $actorName = trim($_SESSION['fullname'] ?? '') ?: $_SESSION['username'];
@@ -52,7 +53,7 @@ header('Cache-Control: no-store');
     <?php endforeach; ?>
   </section>
 
-  <section class="card log-entry-card" aria-labelledby="newLogTitle">
+  <section class="card log-entry-card" aria-labelledby="newLogTitle" data-permission="record_logs.out">
     <div class="log-section-heading"><div><p class="log-eyebrow">NEW ENTRY</p><h2 id="newLogTitle">Log out a student record</h2></div>
       <span class="log-step-label">Search &rarr; Select &rarr; Log out</span></div>
     <div class="log-entry-grid">

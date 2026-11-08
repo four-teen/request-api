@@ -7,6 +7,7 @@ include '../db.php';
 require_once __DIR__ . '/request_status.php';
 
 rrms_require_login();
+rrms_require_permission('dashboard.view');
 
 $getsystemconfig = "SELECT * FROM `tblconfig`";
 $runsystemconfig = mysqli_query($conn, $getsystemconfig);

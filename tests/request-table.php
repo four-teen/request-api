@@ -7,6 +7,7 @@ require __DIR__ . '/../db.php';
 require __DIR__ . '/../administrator/request_status.php';
 require __DIR__ . '/../administrator/request_documents.php';
 require __DIR__ . '/../administrator/request_table.php';
+$GLOBALS['rrms_authenticated_user'] = ['id' => 0, 'role' => 'administrator', 'permissions' => []];
 
 function request_table_assert($condition, $message)
 {

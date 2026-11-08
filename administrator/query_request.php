@@ -10,6 +10,13 @@
 
     rrms_require_login();
     rrms_require_csrf();
+    $requiredPermissions = rrms_request_action_permissions($_POST);
+    if (!$requiredPermissions) rrms_access_denied(400, 'Choose a valid request action.');
+    foreach ($requiredPermissions as $permission) rrms_require_permission($permission);
+    if (isset($_POST['save_request']) && !rrms_can('requests.release')
+        && !in_array($_POST['req_datetime_released'] ?? '', ['', '0000-00-00 00:00:00'], true)) {
+        rrms_access_denied(403, 'Your account cannot create a request that is already released.');
+    }
 
 
 
@@ -260,6 +267,8 @@ if ($info['req_datetime_released'] != '0000-00-00 00:00:00') {
 
         </div>
     ';
+} elseif (!rrms_can('requests.release')) {
+    echo '<p class="text-muted mt-3">Pending release.</p>';
 }else{
     echo
     '
@@ -516,7 +525,7 @@ if (isset($_POST['delete_doc_type'])) {
 		    					<td class="align-middle">'.rrms_h($r['doc_desc']).'</td>
 		    					<td width="1%" class="align-middle">
 									<div class="btn-group" role="group" aria-label="Basic mixed styles example">
-									  <button onclick="remove_doc(\''.(int) $r['id'].'\')" type="button" class="btn btn-danger btn-sm">Remove</button>
+									  <button data-permission="documents.manage" onclick="remove_doc(\''.(int) $r['id'].'\')" type="button" class="btn btn-danger btn-sm">Remove</button>
 									</div>
 		    					</td>
 		    				</tr>

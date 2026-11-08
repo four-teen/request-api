@@ -22,6 +22,8 @@ if (empty($_SESSION['username']) || empty($_SESSION['acc_id'])) {
 }
 require __DIR__ . '/../db.php';
 require __DIR__ . '/record_log_functions.php';
+$user = rrms_current_user();
+if (!$user) rrms_log_reply(401, ['message' => 'Your session expired. Please sign in again.']);
 $method = $_SERVER['REQUEST_METHOD'];
 if (!in_array($method, ['GET', 'POST'], true)) {
     header('Allow: GET, POST');
@@ -31,6 +33,10 @@ if ($method === 'POST' && !rrms_verify_csrf(rrms_request_csrf_token())) {
     rrms_log_reply(419, ['message' => 'Your security token expired. Refresh the page and try again.']);
 }
 $actorId = (int) $_SESSION['acc_id'];
+$actionInput = $_POST['action'] ?? '';
+if (!is_string($actionInput)) rrms_log_reply(422, ['message' => 'Choose a valid record log action.']);
+$permission = $method === 'GET' ? 'record_logs.view' : (['out' => 'record_logs.out', 'return' => 'record_logs.return'][$actionInput] ?? 'administration');
+if (!rrms_user_can($user, $permission)) rrms_log_reply(403, ['message' => 'Your account does not have access to this function.']);
 session_write_close();
 
 try {
@@ -45,9 +51,7 @@ try {
         if ($action !== 'list') throw new InvalidArgumentException('Unknown record log action.');
         rrms_log_reply(200, rrms_log_list($conn, $_GET, $now->format('Y-m-d')));
     }
-    $actors = rrms_log_rows($conn, 'SELECT acc_id, fullname, username FROM tblaccounts WHERE acc_id = ?', 'i', [$actorId]);
-    if (!$actors) rrms_log_reply(401, ['message' => 'Your account is unavailable. Please sign in again.']);
-    $actor = ['id' => $actorId, 'name' => trim($actors[0]['fullname']) ?: $actors[0]['username']];
+    $actor = ['id' => $actorId, 'name' => trim($user['fullname']) ?: $user['username']];
     if (!is_string($_POST['remarks'] ?? '')) throw new InvalidArgumentException('Enter valid remarks.');
     $remarks = trim($_POST['remarks'] ?? '');
     if (strlen($remarks) > 2000) throw new InvalidArgumentException('Remarks must be 2,000 characters or fewer.');
