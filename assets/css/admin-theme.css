@@ -211,3 +211,5 @@ input[type='radio'], input[type='checkbox'] { accent-color: var(--request-green)
 @media (prefers-reduced-motion: reduce) {
   .request-action, .dashboard a[href] > .card { transition: none; transform: none !important; }
 }
+[data-access-denied] { display: none !important; }
+a[aria-disabled="true"] { cursor: default; }

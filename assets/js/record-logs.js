@@ -136,11 +136,11 @@
       cells[7].append(node('span', label, `log-status log-status-${row.status}`));
       if (row.out_remarks) cells[7].append(node('small', `Out: ${row.out_remarks}`));
       if (row.return_remarks) cells[7].append(node('small', `Return: ${row.return_remarks}`));
-      if (!row.returned_at) {
+      if (!row.returned_at && window.rrmsCan?.('record_logs.return')) {
         const button = node('button', 'Record return', 'btn btn-outline-primary btn-sm');
         button.type = 'button'; button.setAttribute('aria-label', `Record return for ${row.student_name}`);
         button.addEventListener('click', () => openReturn(String(row.id))); cells[8].append(button);
-      } else cells[8].append(node('small', 'Completed'));
+      } else cells[8].append(node('small', row.returned_at ? 'Completed' : 'View only'));
       tr.append(...cells); byId('logRows').append(tr);
     }
   }

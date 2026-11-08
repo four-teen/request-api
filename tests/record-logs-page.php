@@ -7,6 +7,8 @@ session_start();
 $_SESSION = ['username' => 'Render fixture', 'acc_id' => 0, 'fullname' => '<Fixture recorder>'];
 session_write_close();
 $_SERVER['PHP_SELF'] = '/administrator/record_logs.php';
+// Only this CLI process uses a render principal; no browser session is authorized.
+$GLOBALS['rrms_authenticated_user'] = ['id' => 0, 'username' => 'Render fixture', 'fullname' => '<Fixture recorder>', 'role' => 'administrator', 'permissions' => [], 'version' => 1];
 ob_start();
 require __DIR__ . '/../administrator/record_logs.php';
 $html = ob_get_clean();

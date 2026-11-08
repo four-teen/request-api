@@ -34,12 +34,18 @@ if ($username === '' || $password === '') {
     request_login_failure('Please fill in both fields.', 400);
 }
 
-$stmt = rrms_prepare_execute(
-    $conn,
-    'SELECT acc_id, username, fullname, password FROM tblaccounts WHERE username = ? LIMIT 1',
-    's',
-    [$username]
-);
+try {
+    $stmt = rrms_prepare_execute(
+        $conn,
+        'SELECT a.acc_id, a.username, a.fullname, a.password, x.session_version
+         FROM tblaccounts a LEFT JOIN tbl_account_access x ON x.account_id = a.acc_id WHERE a.username = ? LIMIT 1',
+        's',
+        [$username]
+    );
+} catch (Throwable $error) {
+    error_log('reQuest sign-in access setup unavailable (code ' . $error->getCode() . ').');
+    request_login_failure('Account access is not configured. Please contact the administrator.', 503);
+}
 
 if (!$stmt) {
     request_login_failure('Unable to sign in right now.', 503);
@@ -64,31 +70,36 @@ if (!$valid) {
     request_login_failure('Invalid username or password.', 401);
 }
 
-session_regenerate_id(true);
+try {
+    $user = rrms_account_principal($conn, (int) $row['acc_id']);
+} catch (Throwable $error) {
+    error_log('reQuest sign-in access setup unavailable (code ' . $error->getCode() . ').');
+    request_login_failure('Account access is not configured. Please contact the administrator.', 503);
+}
+if (!$user || $user['version'] !== (int) $row['session_version'] || !rrms_user_workspace($user)) request_login_failure('Your account is unavailable or has changed. Please sign in again or contact the administrator.', 403);
 
-$_SESSION['username'] = $row['username'];
-$_SESSION['acc_id'] = $row['acc_id'];
-$_SESSION['fullname'] = $row['fullname'];
+session_regenerate_id(true);
+rrms_set_login_session($user);
 rrms_csrf_token();
 
 if (empty(password_get_info((string) $row['password'])['algo'])) {
     $newHash = password_hash($password, PASSWORD_DEFAULT);
     rrms_prepare_execute(
         $conn,
-        'UPDATE tblaccounts SET password = ? WHERE acc_id = ?',
-        'si',
-        [$newHash, (int) $row['acc_id']]
+        'UPDATE tblaccounts SET password = ? WHERE acc_id = ? AND password = ?',
+        'sis',
+        [$newHash, (int) $row['acc_id'], $storedPassword]
     );
 }
 
 if (defined('REQUEST_AUTH_JSON') && REQUEST_AUTH_JSON) {
     header('Content-Type: application/json; charset=utf-8');
     header('Cache-Control: no-store');
-    echo json_encode(['workspaceUrl' => '/dashboard']);
+    echo json_encode(['workspaceUrl' => rrms_user_workspace($user)]);
     exit;
 }
 
-header('Location: administrator/');
+header('Location: ' . rrms_user_workspace($user));
 exit;
 
 ?>

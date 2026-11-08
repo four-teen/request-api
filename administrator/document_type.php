@@ -6,6 +6,7 @@ ob_start();
 include '../db.php';
 
 rrms_require_login();
+rrms_require_permission('documents.view');
 
 $getsystemconfig = "SELECT * FROM `tblconfig`";
 $runsystemconfig = mysqli_query($conn, $getsystemconfig);
@@ -139,7 +140,7 @@ include 'sidebar.php';
           </div>
         </div>
 
-        <div class="col-12 col-xl-4">
+        <div class="col-12 col-xl-4" data-permission="documents.manage">
           <div class="card setup-card">
             <div class="card-body">
               <h5 class="card-title">Add Document Type</h5>

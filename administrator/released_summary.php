@@ -7,6 +7,7 @@
     include '../db.php';
 
     rrms_require_login();
+    rrms_require_permission('requests.view');
 
     $mnt = '0';
     $yr = '0';  

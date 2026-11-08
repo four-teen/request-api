@@ -31,6 +31,7 @@ function harness(respond) {
   get('recordLogData').textContent = JSON.stringify({ csrfToken: 'fixture-token', timezone: 'Asia/Manila' });
   const filters = ['all', 'out', 'overdue', 'returned'].map(status => { const button = new Element('button'); button.dataset.logFilter = status; return button; });
   const context = {
+    window: { rrmsCan: () => true },
     document: { getElementById: get, createElement: tag => new Element(tag), querySelectorAll: () => filters, querySelector: () => null, hidden: false },
     bootstrap: { Modal: class { constructor() { this.visible = false; modals.push(this); } show() { this.visible = true; } hide() { this.visible = false; } } },
     URLSearchParams, Intl, Date,

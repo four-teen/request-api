@@ -9,7 +9,7 @@ foreach ($segments as $segment) {
     }
 }
 $filename = basename($path);
-if (in_array($filename, ['db.php', 'config.php', 'router.php', 'serve.mjs', 'README.md', 'composer.json', 'composer.lock'], true)
+if (in_array($filename, ['db.php', 'config.php', 'account_access.php', 'router.php', 'serve.mjs', 'README.md', 'composer.json', 'composer.lock'], true)
     || (isset($segments[0]) && $segments[0] === 'deploy')) {
     $blocked = true;
 }
